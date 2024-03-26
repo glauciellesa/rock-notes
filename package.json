@@ -4,12 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "server": "npx json-server ./src/data/db.json",
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@vue-hero-icons/outline": "^1.7.2",
+    "axios": "^1.6.8",
+    "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "4"
   },
@@ -17,6 +20,7 @@
     "@types/node": "^20.11.30",
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.19",
+    "json-server": "1.0.0-alpha.23",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
