@@ -11,8 +11,8 @@ const store = useNotesStore();
 const note = computed(() => store.getSelectedNote);
 
 onMounted(() => {
-  const noteId = +route.params.id;
-  if (!isNaN(noteId)) {
+  const noteId = route.params.id as string;
+  if (noteId) {
     store.selectNote(noteId);
   }
 });
@@ -22,8 +22,8 @@ onMounted(() => {
   <div v-if="note">
     <div class="flex justify-center py-4 text-slate-600">{{ formatDateTime(note.createdAt) }}</div>
     <div>
-      <h1>{{ note?.title }}</h1>
-      <p>{{ note?.body }}</p>
+      <input :value="note.title" @input="event => store.editeTitle(event.target?.value ?? '')" />
+      <textarea :value="note.body" @input="event => store.editeBody(event.target?.value ?? '')"></textarea>
     </div>
   </div>
   <div v-else>There are no notes selected</div>
