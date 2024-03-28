@@ -5,10 +5,13 @@ import axios from "axios"
 
 
 export const useNotesStore = defineStore("notes",{
-    state: () => ({notes:[] as Note[]}),
+    state: () => ({notes:[] as Note[], selectedNoteId: null as number | null }),
     getters: {
       getNotes(state){
         return state.notes
+      },
+      getSelectedNote(state){
+        return state.notes.find(note => +note.id === state.selectedNoteId)
       }
     },
     actions: {
@@ -20,6 +23,10 @@ export const useNotesStore = defineStore("notes",{
           catch (error) {
             console.log(error)
         }
+      },
+       selectNote(id:number){
+        console.log({id});
+       this.selectedNoteId = id
       }
     },
 })
