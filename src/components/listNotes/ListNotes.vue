@@ -19,7 +19,6 @@ onMounted(() => store.fetchNotes());
       <Squares2X2Icon class="h-6 w-6" />
     </div>
 
-    <RouterLink :to="`/notes/edit/${route.params.id}`" class="btn btn-sm btn-primary mr-1">Edit</RouterLink>
     <button @click="store.deleteNote" class="btn btn-sm btn-danger btn-delete-user">
       <span>
         <TrashIcon class="h-6 w-6" />
