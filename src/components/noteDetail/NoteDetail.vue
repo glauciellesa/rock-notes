@@ -21,9 +21,11 @@ onMounted(() => {
 <template>
   <div v-if="note">
     <div class="flex justify-center py-4 text-slate-600">{{ formatDateTime(note.createdAt) }}</div>
-    <div>
-      <input :value="note.title" @input="event => store.editeTitle(event.target?.value ?? '')" />
-      <textarea :value="note.body" @input="event => store.editeBody(event.target?.value ?? '')"></textarea>
+    <div class="flex flex-col">
+      <input class="text-[32px] font-bold bg-transparent outline-none" :value="note.title"
+        @input="event => store.editeTitle(event.target?.value ?? '')" />
+      <textarea class="bg-transparent outline-none" :value="note.body"
+        @input="event => store.editeBody(event.target?.value ?? '')"></textarea>
     </div>
   </div>
   <div v-else>There are no notes selected</div>

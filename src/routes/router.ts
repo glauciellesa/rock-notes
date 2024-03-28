@@ -1,5 +1,4 @@
 import NoteDetail from '@components/noteDetail/NoteDetail.vue'
-import NewNote from '@components/newNote/NewNote.vue'
 import { useNotesStore } from '@store/notes';
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -7,7 +6,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   { path: '/notes/:id', component: NoteDetail },
-  { path: '/notes/newNote', component: NewNote },
 ]
 
 const router = createRouter({

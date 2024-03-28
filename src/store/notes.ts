@@ -29,6 +29,28 @@ export const useNotesStore = defineStore("notes", {
       this.selectedNoteId = id
     },
 
+    async newNote() {
+      try {
+        const newNote = {
+          title: '',
+          body: '',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          userName: 'todo'
+        } as Note
+        const response = await axios.post(`${import.meta.env.VITE_BASE_API_URL}`, newNote);
+        const savedNote = await response.data
+
+        this.notes = [savedNote, ...this.notes]
+        this.selectedNoteId = savedNote.id
+        return savedNote.id;
+
+      } catch (error) {
+        console.error('Error adding new note:', error);
+      }
+
+    },
+
     async editeTitle(newTitle: string) {
       if (this.selectedNoteId) {
         try {
@@ -42,7 +64,7 @@ export const useNotesStore = defineStore("notes", {
             return note
           });
         } catch (error) {
-          console.error('Error deleting note:', error);
+          console.error('Error editing title:', error);
         }
       }
     },
@@ -61,7 +83,7 @@ export const useNotesStore = defineStore("notes", {
           });
 
         } catch (error) {
-          console.error('Error deleting note:', error);
+          console.error('Error editing body:', error);
         }
       }
     },
