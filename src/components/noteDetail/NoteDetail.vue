@@ -19,9 +19,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-center py-4 text-slate-600">{{ formatDateTime(note.createdAt) }}</div>
-  <div>
-    <h1>{{ note?.title }}</h1>
-    <p>{{ note?.body }}</p>
+  <div v-if="note">
+    <div class="flex justify-center py-4 text-slate-600">{{ formatDateTime(note.createdAt) }}</div>
+    <div>
+      <h1>{{ note?.title }}</h1>
+      <p>{{ note?.body }}</p>
+    </div>
   </div>
+  <div v-else>There are no notes selected</div>
 </template>
