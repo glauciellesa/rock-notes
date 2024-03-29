@@ -5,7 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 
 const routes = [
-  { path: '/notes/:id', component: NoteDetail },
+  { path: '/notes/:id', component: NoteDetail, },
 ]
 
 const router = createRouter({

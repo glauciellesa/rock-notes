@@ -51,7 +51,7 @@ export const useNotesStore = defineStore("notes", {
 
     },
 
-    async editeTitle(newTitle: string) {
+    async editTitle(newTitle: string) {
       if (this.selectedNoteId) {
         try {
           await axios.patch(`${import.meta.env.VITE_BASE_API_URL}/${this.selectedNoteId}`, { title: newTitle, updatedAt: new Date() });
@@ -69,7 +69,7 @@ export const useNotesStore = defineStore("notes", {
       }
     },
 
-    async editeBody(newBody: string) {
+    async editBody(newBody: string) {
       if (this.selectedNoteId) {
         try {
           await axios.patch(`${import.meta.env.VITE_BASE_API_URL}/${this.selectedNoteId}`, { body: newBody, updatedAt: new Date() });
