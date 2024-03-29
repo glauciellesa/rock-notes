@@ -5,7 +5,7 @@ import axios from "axios"
 
 
 export const useNotesStore = defineStore("notes", {
-  state: () => ({ notes: [] as Note[], selectedNoteId: null as string | null }),
+  state: () => ({ displayMode: 'list' as 'list' | 'card', notes: [] as Note[], selectedNoteId: null as string | null }),
   getters: {
     getNotes(state) {
       return state.notes
