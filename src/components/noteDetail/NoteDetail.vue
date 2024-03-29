@@ -50,7 +50,7 @@ nextTick(() => {
       <input class="text-[32px] font-bold bg-transparent outline-none" :value="note.title" @input="editTitle"
         placeholder="Your title" />
       <textarea ref="refBody" class="bg-transparent outline-none resize-none" :value="note.body" @input="editBody"
-        @focus="resize" @keyup="resize" placeholder="body"></textarea>
+        @focus="resize" @keyup="resize" placeholder="Here go your content"></textarea>
     </div>
   </div>
   <div v-else>There are no notes selected</div>

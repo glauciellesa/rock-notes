@@ -13,19 +13,6 @@ onMounted(() => store.fetchNotes());
 </script>
 
 <template>
-  <div class="pb-8 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <ListBulletIcon class="h-6 w-6" />
-      <Squares2X2Icon class="h-6 w-6" />
-    </div>
-
-    <button @click="store.deleteNote" class="btn btn-sm btn-danger btn-delete-user">
-      <span>
-        <TrashIcon class="h-6 w-6" />
-      </span>
-    </button>
-  </div>
-
   <nav v-for="note in notes" :key="note.id" class="border-b-2 py-2">
     <RouterLink :to="`/notes/${note.id}`">
       <p class="font-bold">{{ note.title }}</p>
