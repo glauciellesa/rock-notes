@@ -1,8 +1,17 @@
 <script setup>
 import { UserIcon } from '@heroicons/vue/24/solid'
-import { useRouter } from 'vue-router';
+import { useAuthStore } from "@store/auth"
+import { computed } from 'vue';
+import router from '@routes/router';
 
-const router = useRouter()
+const authStore = useAuthStore();
+const user = computed(() => authStore.getUser);
+const isLogged = computed(() => authStore.isUserLoggedIn);
+
+const onClick = async () => {
+  await authStore.logout();
+  router.push('/login')
+}
 
 </script>
 
@@ -11,12 +20,13 @@ const router = useRouter()
     <RouterLink :to="'/notes'">
       <div class="font-bold from-neutral-800 text-2xl">Rock.Notes</div>
     </RouterLink>
-    <RouterLink :to="'/login'">
-      <button
+    <div v-if="isLogged">
+      <button @click="onClick"
         class="focus:bg-gray-100 focus:rounded focus:shadow-md hover:bg-gray-200 hover:rounded hover:shadow-md p-1 flex gap-1">
         <UserIcon class="w-6" />
-        <span>Logout</span>
+        <span>{{ isLogged ? "Logout" : "Login" }}</span>
       </button>
-    </RouterLink>
+    </div>
+
   </div>
 </template>

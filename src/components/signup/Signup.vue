@@ -1,44 +1,68 @@
-<script setup>
+<script setup lang="ts">
 import { EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/solid';
-import { RouterLink, useRoute } from 'vue-router';
 import { computed, ref } from "vue";
-
-const route = useRoute();
+import { useAuthStore } from "@store/auth.ts"
+import { Form, Field, useForm, ErrorMessage } from 'vee-validate';
+import { LoginForm } from "@models/auth.ts"
+import router from '@routes/router';
 
 const hidePassword = ref(true);
 const passwordFieldIcon = computed(() => hidePassword.value ? EyeSlashIcon : EyeIcon);
 const passwordFieldType = computed(() => hidePassword.value ? "password" : "text");
 
-const name = ref("");
-const email = ref("");
-const password = ref("");
+const { errors } = useForm<LoginForm>();
 
-const onSubmit = () => {
-  console.log('Submit clicked');
+const validateUsername = (value: string) => {
+  const regularExpression = /^[a-zA-Z]{3,}$/;
+  if (!regularExpression.test(value)) {
+    return 'Your username must contain at least 3 letters and consist only of alphabetic characters (A-Z, a-z).';
+  }
+  return true
+}
+
+const validatePassword = (value: string) => {
+  const regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+  if (!regularExpression.test(value)) {
+    return "Create a password that's 6 to 16 characters long and contains at least one digit and one special character from the set !@#$%^&*.";
+  }
+  return true;
+};
+
+const onSubmit = async (values: LoginForm) => {
+  const authStore = useAuthStore();
+  const { username, password } = values;
+
+  try {
+    console.log(username, password);
+    await authStore.signup(username, password);
+    router.push('/notes')
+
+  } catch (error) {
+    console.log({ error });
+  }
 }
 </script>
 
 <template>
   <div class="p-8 flex flex-col justify-center gap-4 items-center">
-    <h1 class="font-bold text-2xl">Create your account</h1>
-    <form @submit.prevent="onSubmit" class="flex flex-col items-center w-full sm:w-2/6">
-      <input type="text" v-model="name" placeholder="Name"
-        class="text-[18px] bg-transparent border-2 rounded p-2 w-full">
-      <input type="text" v-model="email" placeholder="Email address"
-        class="text-[18px] bg-transparent border-b-2 border-r-2 border-l-2  rounded p-2 w-full">
-      <div
-        class="flex justify-between border-b-2 border-r-2 border-l-2 rounded p-2 hover:outline hover:outline-gray-400 w-full">
-        <input v-model="password" :type="passwordFieldType" placeholder="Enter Password"
-          class="text-[18px] outline-none bg-transparent w-full">
+    <h1 class="font-bold text-2xl pb-6">Sign in to your account</h1>
+    <Form @submit="onSubmit" class="flex flex-col items-center w-full sm:w-2/6">
+      <Field type="text" name="username" placeholder="Username" :rules="validateUsername"
+        class="text-[18px] bg-transparent border border-b-2  rounded p-2 w-full" />
+      <ErrorMessage class="text-red-700 w-full pb-4" name="username" />
+      <div class="flex justify-between border-b-2 border rounded p-2 hover:outline hover:outline-gray-400 w-full">
+        <Field :type="passwordFieldType" name="password" placeholder="Enter Password" :rules="validatePassword"
+          class="text-[18px] outline-none bg-transparent w-full" />
         <span @click="hidePassword = !hidePassword" class="h-6 w-6 text-gray-400 cursor-pointer">
           <component :is="passwordFieldIcon" />
         </span>
       </div>
+      <ErrorMessage class="text-red-700 w-full pb-4" name="password" />
+      <span class="text-red-700">{{ errors?.password }}</span>
       <div class="flex flex-col gap-4 w-full sm:w-3/4 pt-6">
         <button type="submit" class="text-[18px] rounded bg-gray-600 text-gray-50 p-2">Sign up</button>
-        <!-- <button class="text-[18px] rounded border border-gray-600 text-gray-600 p-2">Sign up with Google</button> -->
       </div>
-    </form>
+    </Form>
     <p class="pt-4 text-[18px] text-gray-600">Already have an account?
       <RouterLink :to="'/login/'">
         <span class="font-bold underline">Login</span>
