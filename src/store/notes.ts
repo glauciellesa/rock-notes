@@ -1,3 +1,4 @@
+import { useAuthStore } from '@store/auth';
 import { Note } from '@models/note';
 import { defineStore } from 'pinia'
 // Import axios to make HTTP requests
@@ -17,8 +18,9 @@ export const useNotesStore = defineStore("notes", {
   },
   actions: {
     async fetchNotes() {
+      const authStore = useAuthStore()
       try {
-        const data = await axios.get(baseUrl)
+        const data = await axios.get(`${baseUrl}?userName=${authStore.getUser}`)
         this.notes = data.data
       }
       catch (error) {
@@ -31,13 +33,14 @@ export const useNotesStore = defineStore("notes", {
     },
 
     async newNote() {
+      const authStore = useAuthStore()
       try {
         const newNote = {
           title: '',
           body: '',
           createdAt: new Date(),
           updatedAt: new Date(),
-          userName: 'todo'
+          userName: authStore.getUser
         } as Note
         const response = await axios.post(`${baseUrl}`, newNote);
         const savedNote = await response.data

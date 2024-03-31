@@ -40,7 +40,7 @@ export const useAuthStore = defineStore('auth', {
         if (userList.lenght == 0) {
           return null
         } else {
-          this.user = userList[0];
+          this.user = userList[0].userName;
           setCookie('user', JSON.stringify(userList[0].userName));
           return userList[0].userName
         }
