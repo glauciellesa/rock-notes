@@ -40,12 +40,9 @@ const onSubmit = async (values: LoginForm) => {
       setErrors({ apiError: 'Login failed. Please check your credentials.' });
     }
   } catch (error) {
-    setErrors({ apiError: error.message });
+    setErrors({ apiError: 'Login failed. Please check your credentials.' });
   }
 };
-
-console.log({ errors });
-
 
 </script>
 

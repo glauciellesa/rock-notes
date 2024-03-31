@@ -33,12 +33,11 @@ const onSubmit = async (values: LoginForm) => {
   const { username, password } = values;
 
   try {
-    console.log(username, password);
     await authStore.signup(username, password);
     router.push('/notes')
 
   } catch (error) {
-    console.log({ error });
+    console.error(error);
   }
 }
 </script>

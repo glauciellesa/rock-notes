@@ -1,5 +1,5 @@
 export function setCookie(id: string, value: string) {
-  document.cookie = id + '=' + value;
+  document.cookie = `${id}=${value};path=/`;
 }
 
 export function getCookie(id: string) {
