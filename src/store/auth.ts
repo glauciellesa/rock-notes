@@ -1,36 +1,59 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
-import router from '../routes/router';
+import { deleteCookie, getCookie, setCookie } from '@helpers/cookies';
 
 const baseUrl = `${import.meta.env.VITE_BASE_API_URL}/users`;
 
-export const useAuthStore = defineStore({
-  id: 'auth',
+export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: JSON.parse(localStorage.getItem('user')) || null,
-    returnUrl: null
+    user: getCookie("user") ? JSON.parse(getCookie("user")!) : null,
   }),
-  actions: {
-    async login(username: string, password: string) {
-      try {
-        const response = await axios.post(`${baseUrl}/authenticate`, { username, password });
-        const user = response.data;
+  getters: {
+    getUser(state) {
+      return state.user
+    },
+    isUserLoggedIn(state) {
+      return !!state.user
+    }
+  },
 
-        // update pinia state
-        this.user = user;
-        // store user details and jwt in local storage to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(user));
-        // redirect to previous url or default to home page
-        router.push(this.returnUrl || '/');
+  actions: {
+    async signup(userName: string, password: string) {
+      const newUser = {
+        userName,
+        password
+      }
+      try {
+        const response = await axios.post(`${baseUrl}`, newUser);
+        const user = response.data;
+        await this.login(user.userName, user.password)
+
       } catch (error) {
-        console.error('Login failed:', error);
-        // Handle error, show error message to the user, etc.
+        console.error('Signup failed:', error);
       }
     },
-    logout() {
+    async login(username: string, password: string) {
+      try {
+        const response = await axios.get(`${baseUrl}?userName=${username}&password=${password}`);
+        const userList = response.data;
+
+        if (userList.lenght == 0) {
+          return null
+        } else {
+          this.user = userList[0];
+          setCookie('user', JSON.stringify(userList[0].userName));
+          return userList[0].userName
+        }
+      } catch (error) {
+        this.user = null
+        deleteCookie('user');
+        console.error('Login failed:', error);
+      }
+    },
+
+    async logout() {
       this.user = null;
-      localStorage.removeItem('user');
-      router.push('/login');
+      deleteCookie('user');
     }
   }
 });

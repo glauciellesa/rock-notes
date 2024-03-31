@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import path from "path";
 
 
-const aliases = ['assets','components', 'data', 'store','models','helpers'];
+const aliases = ['assets', 'components', 'data', 'store', 'models', 'helpers', "routes"];
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,5 +16,5 @@ export default defineConfig({
       },
     ))
   },
-  
+
 })
