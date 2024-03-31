@@ -33,12 +33,11 @@ const onSubmit = async (values: LoginForm) => {
   const { username, password } = values;
 
   try {
-    console.log(username, password);
     await authStore.signup(username, password);
     router.push('/notes')
 
   } catch (error) {
-    console.log({ error });
+    console.error(error);
   }
 }
 </script>
@@ -46,7 +45,7 @@ const onSubmit = async (values: LoginForm) => {
 <template>
   <div class="p-8 flex flex-col justify-center gap-4 items-center">
     <h1 class="font-bold text-2xl pb-6">Sign in to your account</h1>
-    <Form @submit="onSubmit" class="flex flex-col items-center w-full sm:w-2/6">
+    <Form @submit="onSubmit" class="flex flex-col gap-2 items-center w-full sm:w-2/6">
       <Field type="text" name="username" placeholder="Username" :rules="validateUsername"
         class="text-[18px] bg-transparent border border-b-2  rounded p-2 w-full" />
       <ErrorMessage class="text-red-700 w-full pb-4" name="username" />

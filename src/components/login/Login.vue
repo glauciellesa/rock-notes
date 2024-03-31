@@ -11,7 +11,7 @@ const hidePassword = ref(true);
 const passwordFieldIcon = computed(() => hidePassword.value ? EyeSlashIcon : EyeIcon);
 const passwordFieldType = computed(() => hidePassword.value ? "password" : "text");
 
-const { errors } = useForm<LoginForm>();
+const { errors, setErrors } = useForm<LoginForm>();
 
 
 const validateUsername = (value: string) => {
@@ -32,9 +32,15 @@ const onSubmit = async (values: LoginForm) => {
   const authStore = useAuthStore();
   const { username, password } = values;
 
-  const isLogged = await authStore.login(username, password);
-  if (isLogged) {
-    router.push('/')
+  try {
+    const isLogged = await authStore.login(username, password);
+    if (isLogged) {
+      router.push('/');
+    } else {
+      setErrors({ apiError: 'Login failed. Please check your credentials.' });
+    }
+  } catch (error) {
+    setErrors({ apiError: 'Login failed. Please check your credentials.' });
   }
 };
 
@@ -43,7 +49,7 @@ const onSubmit = async (values: LoginForm) => {
 <template>
   <div class="p-8 flex flex-col justify-center gap-4 items-center">
     <h1 class="font-bold text-2xl pb-6">Sign in to your account</h1>
-    <Form @submit="onSubmit" class="flex flex-col items-center w-full sm:w-2/6">
+    <Form @submit="onSubmit" class="flex flex-col gap-2 items-center w-full sm:w-2/6">
       <Field type="text" name="username" placeholder="Username" :rules="validateUsername"
         class="text-[18px] bg-transparent border border-b-2  rounded p-2 w-full" />
       <ErrorMessage class="text-red-700 w-full pb-4" name="username" />
@@ -65,5 +71,6 @@ const onSubmit = async (values: LoginForm) => {
         <span class="font-bold underline">Create one now</span>
       </RouterLink>
     </p>
+    <div v-if="errors.apiError" class="p-2 bg-pink-100 text-red-700 mt-3 mb-0">{{ errors.apiError }}</div>
   </div>
 </template>
