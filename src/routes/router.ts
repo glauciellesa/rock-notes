@@ -1,4 +1,3 @@
-import { path } from 'path';
 import NoteDetail from '@components/noteDetail/NoteDetail.vue'
 import Login from "@components/login/Login.vue"
 import Signup from "@components/signup/Signup.vue"
@@ -24,7 +23,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // Trigger the selectNote action with the new route params
-  if (params.id) {
+  if (to.params.id) {
     useNotesStore().selectNote(to.params.id as string);
   }
   next();
