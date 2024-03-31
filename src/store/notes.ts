@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 // Import axios to make HTTP requests
 import axios from "axios"
 
+const baseUrl = `${import.meta.env.VITE_BASE_API_URL}/notes`;
 
 export const useNotesStore = defineStore("notes", {
   state: () => ({ notes: [] as Note[], selectedNoteId: null as string | null }),
@@ -17,7 +18,7 @@ export const useNotesStore = defineStore("notes", {
   actions: {
     async fetchNotes() {
       try {
-        const data = await axios.get(import.meta.env.VITE_BASE_API_URL)
+        const data = await axios.get(baseUrl)
         this.notes = data.data
       }
       catch (error) {
@@ -38,7 +39,7 @@ export const useNotesStore = defineStore("notes", {
           updatedAt: new Date(),
           userName: 'todo'
         } as Note
-        const response = await axios.post(`${import.meta.env.VITE_BASE_API_URL}`, newNote);
+        const response = await axios.post(`${baseUrl}`, newNote);
         const savedNote = await response.data
 
         this.notes = [savedNote, ...this.notes]
@@ -54,7 +55,7 @@ export const useNotesStore = defineStore("notes", {
     async editTitle(newTitle: string) {
       if (this.selectedNoteId) {
         try {
-          await axios.patch(`${import.meta.env.VITE_BASE_API_URL}/${this.selectedNoteId}`, { title: newTitle, updatedAt: new Date() });
+          await axios.patch(`${baseUrl}/${this.selectedNoteId}`, { title: newTitle, updatedAt: new Date() });
           this.notes = this.notes.map(note => {
             if (note.id === this.selectedNoteId) {
               return {
@@ -72,7 +73,7 @@ export const useNotesStore = defineStore("notes", {
     async editBody(newBody: string) {
       if (this.selectedNoteId) {
         try {
-          await axios.patch(`${import.meta.env.VITE_BASE_API_URL}/${this.selectedNoteId}`, { body: newBody, updatedAt: new Date() });
+          await axios.patch(`${baseUrl}/${this.selectedNoteId}`, { body: newBody, updatedAt: new Date() });
           this.notes = this.notes.map(note => {
             if (note.id === this.selectedNoteId) {
               return {
@@ -91,7 +92,7 @@ export const useNotesStore = defineStore("notes", {
     async deleteNote() {
       if (this.selectedNoteId) {
         try {
-          await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/${this.selectedNoteId}`);
+          await axios.delete(`${baseUrl}/${this.selectedNoteId}`);
           this.notes = this.notes.filter(note => note.id !== this.selectedNoteId);
           this.selectedNoteId = null;
         } catch (error) {
