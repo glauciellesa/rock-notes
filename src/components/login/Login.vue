@@ -11,7 +11,7 @@ const hidePassword = ref(true);
 const passwordFieldIcon = computed(() => hidePassword.value ? EyeSlashIcon : EyeIcon);
 const passwordFieldType = computed(() => hidePassword.value ? "password" : "text");
 
-const { errors } = useForm<LoginForm>();
+const { errors, setErrors } = useForm<LoginForm>();
 
 
 const validateUsername = (value: string) => {
@@ -32,11 +32,20 @@ const onSubmit = async (values: LoginForm) => {
   const authStore = useAuthStore();
   const { username, password } = values;
 
-  const isLogged = await authStore.login(username, password);
-  if (isLogged) {
-    router.push('/')
+  try {
+    const isLogged = await authStore.login(username, password);
+    if (isLogged) {
+      router.push('/');
+    } else {
+      setErrors({ apiError: 'Login failed. Please check your credentials.' });
+    }
+  } catch (error) {
+    setErrors({ apiError: error.message });
   }
 };
+
+console.log({ errors });
+
 
 </script>
 
@@ -65,5 +74,6 @@ const onSubmit = async (values: LoginForm) => {
         <span class="font-bold underline">Create one now</span>
       </RouterLink>
     </p>
+    <div v-if="errors.apiError" class="p-2 bg-pink-100 text-red-700 mt-3 mb-0">{{ errors.apiError }}</div>
   </div>
 </template>
