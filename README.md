@@ -17,7 +17,7 @@ To run Rock Notes locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/rock-notes.git
+   git clone https://github.com/glauciellesa/rock-notes.git
    ```
 
 2. Navigate to the project directory:
