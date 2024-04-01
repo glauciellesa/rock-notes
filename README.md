@@ -30,11 +30,8 @@ To run Rock Notes locally, follow these steps:
    cd project-directory
    ```
 
-##Running the Project
-Once the installation is complete, you can run the project using npm scripts. Here are the available scripts:
-
-##Development Mode
-To run the project in development mode with live reloading, use the following command:
+## Running the Project
+Once the installation is complete, you can run the project using:
 
 ```bash
 pnpm run dev
