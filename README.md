@@ -1,7 +1,7 @@
 # Rock Notes
 
 <p align="center">
-  <img src="@assets/app.gif" width="100%" alt="application's demonstration">
+  <img src="./src/assets/app.gif" width="100%" alt="application's demonstration">
 </p>
 
 ## Vue 3 + TypeScript + Vite
