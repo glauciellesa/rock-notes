@@ -2,7 +2,7 @@
 
 ## Vue 3 + TypeScript + Vite
 
-Rock Notes is a simple note-taking application inspired by Apple Notes. It allows users to create, edit, and delete notes. This README provides an overview of the application's features, setup instructions, and configuration details.
+Rock Notes is a simple note-taking application inspired by Apple Notes. It allows users to create, edit, and delete notes. This README provides an overview of the application's features and installation.
 
 ## Features
 
