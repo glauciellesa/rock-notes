@@ -32,8 +32,8 @@ Once the installation is complete, you can run the project using npm scripts. He
 ##Development Mode
 To run the project in development mode with live reloading, use the following command:
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   pnpm run dev
+   ```
 
 This command runs both the JSON server and the Vite development server concurrently, allowing you to work on Vue.js application while also having access to the API served by the JSON server.
