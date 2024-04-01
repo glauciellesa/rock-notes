@@ -8,7 +8,7 @@ import { useAuthStore } from "@store/auth"
 
 
 const routes = [
-  { path: '/', redirect: '/notes' },
+  { path: '/', alias: '/login', component: Login, },
   {
     path: '/notes', component: Notes, meta: { requiresAuth: true }, children: [
       { path: '/notes/:id', meta: { requiresAuth: true }, component: NoteDetail, },

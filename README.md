@@ -1,9 +1,39 @@
-# Vue 3 + TypeScript + Vite
+# Rock Notes
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Vue 3 + TypeScript + Vite
 
-## Recommended Setup
+Rock Notes is a simple note-taking application inspired by Apple Notes. It allows users to create, edit, and delete notes. This README provides an overview of the application's features, setup instructions, and configuration details.
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+## Features
 
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+- **Note Creation**: Users can create new notes with a title and content.
+- **Note Editing**: Existing notes can be edited to update the title and content.
+- **Note Deletion**: Users can delete unwanted notes.
+
+## Installation
+
+To run Rock Notes locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/rock-notes.git
+   ```
+
+2. Navigate to the project directory:
+
+```bash
+cd project-directory
+```
+
+##Running the Project
+Once the installation is complete, you can run the project using npm scripts. Here are the available scripts:
+
+##Development Mode
+To run the project in development mode with live reloading, use the following command:
+
+```bash
+npm run dev
+```
+
+This command runs both the JSON server and the Vite development server concurrently, allowing you to work on Vue.js application while also having access to the API served by the JSON server.
