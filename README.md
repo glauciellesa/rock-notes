@@ -1,5 +1,9 @@
 # Rock Notes
 
+<p align="center">
+  <img src="@assets/app.gif" width="100%" alt="application's demonstration">
+</p>
+
 ## Vue 3 + TypeScript + Vite
 
 Rock Notes is a simple note-taking application inspired by Apple Notes. It allows users to create, edit, and delete notes. This README provides an overview of the application's features and installation.
@@ -32,8 +36,8 @@ Once the installation is complete, you can run the project using npm scripts. He
 ##Development Mode
 To run the project in development mode with live reloading, use the following command:
 
-   ```bash
-   pnpm run dev
-   ```
+```bash
+pnpm run dev
+```
 
 This command runs both the JSON server and the Vite development server concurrently, allowing you to work on Vue.js application while also having access to the API served by the JSON server.
