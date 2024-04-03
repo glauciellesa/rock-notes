@@ -51,9 +51,10 @@ const onSubmit = async (values: LoginForm) => {
     <h1 class="font-bold text-2xl pb-6">Sign in to your account</h1>
     <Form @submit="onSubmit" class="flex flex-col gap-2 items-center w-full sm:w-2/6">
       <Field type="text" name="username" placeholder="Username" :rules="validateUsername"
-        class="text-[18px] bg-transparent border border-b-2  rounded p-2 w-full" />
+        class="text-[18px] bg-transparent border border-b-2  rounded p-2  hover:outline-4 hover:outline-blue-700 w-full" />
       <ErrorMessage class="text-red-700 w-full pb-4" name="username" />
-      <div class="flex justify-between border-b-2 border rounded p-2 hover:outline hover:outline-gray-400 w-full">
+      <div
+        class="flex justify-between border-b-2 border rounded p-2 hover:outline hover:outline-2 hover:outline-blue-700 w-full">
         <Field :type="passwordFieldType" name="password" placeholder="Enter Password" :rules="validatePassword"
           class="text-[18px] outline-none bg-transparent w-full" />
         <span @click="hidePassword = !hidePassword" class="h-6 w-6 text-gray-400 cursor-pointer">
