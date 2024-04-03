@@ -44,7 +44,7 @@ nextTick(() => {
 </script>
 
 <template>
-  <div v-if="note" :key="route.path">
+  <div v-if="note" :key="route.path" class="px-6">
     <div class="flex justify-center py-4 text-slate-600">{{ formatDateTime(note.createdAt) }}</div>
     <div class="flex flex-col h-full">
       <input class="text-[32px] font-bold bg-transparent outline-none" :value="note.title" @input="editTitle"
@@ -53,5 +53,5 @@ nextTick(() => {
         @focus="resize" @keyup="resize" placeholder="Here go your content"></textarea>
     </div>
   </div>
-  <div v-else>There are no notes selected</div>
+  <div v-else class="p-6">There are no notes selected</div>
 </template>

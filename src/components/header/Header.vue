@@ -16,8 +16,8 @@ const onClick = async () => {
 </script>
 
 <template>
-  <div class="p-4 flex justify-between items-center shadow-md">
-    <RouterLink :to="'/notes'">
+  <div class="p-4 flex justify-between items-center">
+    <RouterLink :to="'/list/notes'">
       <div class="font-bold from-neutral-800 text-2xl">Rock.Notes</div>
     </RouterLink>
     <div v-if="isLogged">

@@ -1,5 +1,6 @@
 import NoteDetail from '@components/noteDetail/NoteDetail.vue'
 import Login from "@components/login/Login.vue"
+import Dashboard from "@components/dashboard/Dashboard.vue"
 import Signup from "@components/signup/Signup.vue"
 import Notes from "@components/notes/Notes.vue"
 import { useNotesStore } from '@store/notes';
@@ -10,10 +11,12 @@ import { useAuthStore } from "@store/auth"
 const routes = [
   { path: '/', alias: '/login', component: Login, },
   {
-    path: '/notes', component: Notes, meta: { requiresAuth: true }, children: [
-      { path: '/notes/:id', meta: { requiresAuth: true }, component: NoteDetail, },
+    path: '/list/notes', component: Notes, meta: { requiresAuth: true }, children: [
+      { path: ':id', meta: { requiresAuth: true }, component: NoteDetail, },
     ]
   },
+  { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
+  { path: '/dashboard/notes/:id', component: NoteDetail, meta: { requiresAuth: true } },
   { path: '/login', component: Login, },
   { path: '/signup', component: Signup, },
 ]
