@@ -8,5 +8,9 @@ export function getCookie(id: string) {
 }
 
 export function deleteCookie(id: string) {
-  document.cookie = id + '=;';
+  document.cookie = `${id}=;`;
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  document.cookie = `${id}=; expires=${yesterday.toUTCString()};`;
 }
