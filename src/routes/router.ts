@@ -31,11 +31,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
-
   if (to.meta.requiresAuth && !authStore.isUserLoggedIn) {
-    next({
-      path: '/login'
-    })
+    next({ path: '/login' });
+  } else if (to.path === '/' && authStore.isUserLoggedIn || to.path === '/' && authStore.isUserLoggedIn) {
+    next({ path: '/list/notes' });
   } else {
     next();
   }
