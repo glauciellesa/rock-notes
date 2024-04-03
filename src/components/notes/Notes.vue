@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import ListNotes from '@components/listNotes/ListNotes.vue'
-import CardNotes from '@components/cardNotes/CardNotes.vue'
+import Dashboard from '@components/dashboard/Dashboard.vue'
 import { useNotesStore } from '@store/notes';
 import { computed } from 'vue';
 
 const store = useNotesStore();
 
 const isDisplayList = computed(() => store.getSelectedDisplayMode == 'list');
-
 
 </script>
 
@@ -20,7 +19,7 @@ const isDisplayList = computed(() => store.getSelectedDisplayMode == 'list');
       <RouterView />
     </main>
   </div>
-  <div v-else>
-    <CardNotes />
+  <div v-else class="p-6">
+    <Dashboard />
   </div>
 </template>

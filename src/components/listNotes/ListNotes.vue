@@ -20,8 +20,8 @@ const selectNote = (id) => {
 <template>
   <nav v-for="note in notes" :key="note.id" class="border-b p-2"
     :class="{ 'rounded-md bg-gray-300': note.id === selectedNoteId }">
-    <RouterLink :to="`/notes/${note.id}`" @click="selectNote(note.id)">
-      <p class="font-bold">{{ note.title }}</p>
+    <RouterLink :to="`/list/notes/${note.id}`" @click="selectNote(note.id)">
+      <p class="font-bold line-clamp-1">{{ note.title }}</p>
       <span>{{ formatDate(note.createdAt) }}</span>
     </RouterLink>
   </nav>

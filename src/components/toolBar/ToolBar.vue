@@ -10,15 +10,17 @@ const router = useRouter()
 
 const setDisplayModeList = () => {
   store.changeDisplay('list')
+  router.push('/list/notes')
 }
 
 const setDisplayModeBoard = () => {
   store.changeDisplay('board')
+  router.push('/dashboard')
 }
 
 const newNote = async () => {
   const id = await store.newNote()
-  router.push(`/notes/${id}`)
+  router.push(`/list/notes/${id}`)
 }
 
 const deleteSelectedNote = () => {

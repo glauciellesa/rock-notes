@@ -34,7 +34,7 @@ const onSubmit = async (values: LoginForm) => {
 
   try {
     await authStore.signup(username, password);
-    router.push('/notes')
+    router.push('/list/notes')
 
   } catch (error) {
     console.error(error);

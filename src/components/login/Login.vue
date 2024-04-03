@@ -35,7 +35,7 @@ const onSubmit = async (values: LoginForm) => {
   try {
     const isLogged = await authStore.login(username, password);
     if (isLogged) {
-      router.push('/notes');
+      router.push('/list/notes');
     } else {
       setErrors({ apiError: 'Login failed. Please check your credentials.' });
     }

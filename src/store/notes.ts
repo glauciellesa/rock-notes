@@ -7,16 +7,26 @@ import axios from "axios"
 const baseUrl = `${import.meta.env.VITE_BASE_API_URL}/notes`;
 
 export const useNotesStore = defineStore("notes", {
-  state: () => ({ notes: [] as Note[], selectedNoteId: null as string | null }),
+  state: () => ({ notes: [] as Note[], selectedNoteId: null as string | null, displayMode: 'list' as "list" | "board" }),
+
   getters: {
+    getSelectedDisplayMode(state) {
+      return state.displayMode
+    },
+
     getNotes(state) {
       return state.notes
     },
+
     getSelectedNote(state) {
       return state.notes.find(note => note.id === state.selectedNoteId)
-    },
+    }
   },
   actions: {
+    changeDisplay(displaySelected: 'list' | 'board') {
+      this.displayMode = displaySelected
+    },
+
     async fetchNotes() {
       const authStore = useAuthStore()
       try {
