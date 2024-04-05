@@ -35,7 +35,7 @@ const displayMode = computed(() => store.getSelectedDisplayMode);
 
 <template>
   <div class="px-6 flex w-full items-start">
-    <div class="flex justify-between items-start gap-2 pr-4 w-[37.5%] md:w-[33.2%]">
+    <div class="flex justify-between items-start gap-2 pr-4 w-full md:w-[33.2%]">
       <div class="flex gap-2 pb-2">
         <button @click="setDisplayModeList"  :class="{ 'rounded-md bg-gray-200 shadow-md': displayMode === 'list'}"
           class="focus:bg-gray-100 focus:rounded focus:shadow-md hover:bg-gray-200 hover:rounded hover:shadow-md p-1">
