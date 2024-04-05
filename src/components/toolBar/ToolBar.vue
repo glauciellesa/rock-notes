@@ -8,6 +8,8 @@ import { computed} from 'vue';
 const store = useNotesStore();
 const router = useRouter()
 
+const displayMode = computed(() => store.getSelectedDisplayMode);
+
 const setDisplayModeList = () => {
   store.changeDisplay('list')
   router.push('/list/notes')
@@ -20,16 +22,27 @@ const setDisplayModeBoard = () => {
 
 const newNote = async () => {
   const id = await store.newNote()
-  router.push(`/list/notes/${id}`)
+  if ( displayMode === 'list') {
+    router.push(`/list/notes/${id}`)
+  }else{
+    router.push(`/dashboard/notes/${id}`)
+  }
 }
 
-const deleteSelectedNote = () => {
+const deleteSelectedNote = async() => {
   if (store.selectedNoteId) {
-    store.deleteNote();
+    let isDeleted = await store.deleteNote();
+
+    if (isDeleted) {
+      const displayMode = store.getSelectedDisplayMode;
+      if (displayMode === 'list') {
+        router.push(`/list/notes`);
+      } else {
+        router.push(`/dashboard`);
+      }
+    }
   }
 };
-
-const displayMode = computed(() => store.getSelectedDisplayMode);
 
 </script>
 
