@@ -38,7 +38,7 @@ const displayMode = computed(() => store.getSelectedDisplayMode);
     <div class="flex justify-between items-start gap-2 pr-4 w-full md:w-[33.2%]">
       <div class="flex gap-2 pb-2">
         <button @click="setDisplayModeList"  :class="{ 'rounded-md bg-gray-200 shadow-md': displayMode === 'list'}"
-          class="focus:bg-gray-100 focus:rounded focus:shadow-md hover:bg-gray-200 hover:rounded hover:shadow-md p-1">
+          class="hidden sm:inline-block  focus:bg-gray-100 focus:rounded focus:shadow-md hover:bg-gray-200 hover:rounded hover:shadow-md p-1">
           <ListBulletIcon class="h-6 w-6" />
         </button>
         <button @click="setDisplayModeBoard"  :class="{ 'rounded-md bg-gray-200 shadow-md': displayMode === 'board' }"
