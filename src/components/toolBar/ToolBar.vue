@@ -8,6 +8,8 @@ import { computed} from 'vue';
 const store = useNotesStore();
 const router = useRouter()
 
+const displayMode = computed(() => store.getSelectedDisplayMode);
+
 const setDisplayModeList = () => {
   store.changeDisplay('list')
   router.push('/list/notes')
@@ -20,25 +22,36 @@ const setDisplayModeBoard = () => {
 
 const newNote = async () => {
   const id = await store.newNote()
-  router.push(`/list/notes/${id}`)
+  if ( displayMode === 'list') {
+    router.push(`/list/notes/${id}`)
+  }else{
+    router.push(`/dashboard/notes/${id}`)
+  }
 }
 
-const deleteSelectedNote = () => {
+const deleteSelectedNote = async() => {
   if (store.selectedNoteId) {
-    store.deleteNote();
+    let isDeleted = await store.deleteNote();
+
+    if (isDeleted) {
+      const displayMode = store.getSelectedDisplayMode;
+      if (displayMode === 'list') {
+        router.push(`/list/notes`);
+      } else {
+        router.push(`/dashboard`);
+      }
+    }
   }
 };
-
-const displayMode = computed(() => store.getSelectedDisplayMode);
 
 </script>
 
 <template>
   <div class="px-6 flex w-full items-start">
-    <div class="flex justify-between items-start gap-2 pr-4 w-[37.5%] md:w-[33.2%]">
+    <div class="flex justify-between items-start gap-2 pr-4 w-full md:w-[33.2%]">
       <div class="flex gap-2 pb-2">
         <button @click="setDisplayModeList"  :class="{ 'rounded-md bg-gray-200 shadow-md': displayMode === 'list'}"
-          class="focus:bg-gray-100 focus:rounded focus:shadow-md hover:bg-gray-200 hover:rounded hover:shadow-md p-1">
+          class="hidden sm:inline-block  focus:bg-gray-100 focus:rounded focus:shadow-md hover:bg-gray-200 hover:rounded hover:shadow-md p-1">
           <ListBulletIcon class="h-6 w-6" />
         </button>
         <button @click="setDisplayModeBoard"  :class="{ 'rounded-md bg-gray-200 shadow-md': displayMode === 'board' }"

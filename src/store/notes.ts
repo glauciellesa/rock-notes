@@ -1,7 +1,6 @@
 import { useAuthStore } from '@store/auth';
 import { Note } from '@models/note';
 import { defineStore } from 'pinia'
-// Import axios to make HTTP requests
 import axios from "axios"
 
 const baseUrl = `${import.meta.env.VITE_BASE_API_URL}/notes`;
@@ -108,8 +107,10 @@ export const useNotesStore = defineStore("notes", {
           await axios.delete(`${baseUrl}/${this.selectedNoteId}`);
           this.notes = this.notes.filter(note => note.id !== this.selectedNoteId);
           this.selectedNoteId = null;
+          return true
         } catch (error) {
           console.error('Error deleting note:', error);
+          return false
         }
       }
     }
